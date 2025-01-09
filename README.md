@@ -1,5 +1,8 @@
 [![Python package](https://github.com/BhallaLab/moose-core/actions/workflows/pymoose.yml/badge.svg)](https://github.com/BhallaLab/moose-core/actions/workflows/pymoose.yml)
 
+# Repo for testing git workflow
+This is a repo for testing workflow using git.
+
 # MOOSE
 
 MOOSE is the Multiscale Object-Oriented Simulation Environment. It is designed

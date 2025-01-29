@@ -2,6 +2,9 @@ name: Python package
 
 on: [push]
 
+permissions:
+  contents: write
+
 jobs:
   build_wheel:
     runs-on: ${{ matrix.os }}    
@@ -24,8 +27,8 @@ jobs:
       - name: MacOS dpendencies
         if: ${{ runner.os == 'macOS' }}
         run: |
-          brew uninstall pkg-config || :
-            brew uninstall pkg-config@0.29.2
+          brew uninstall pkg-config || echo "pkg-config not installed, skipping uninstallation."
+          brew uninstall pkg-config@0.29.2 || echo "pkg-config@0.29.2 not available, skipping uninstallation."
           brew install gsl
           brew install hdf5          
       - name: Windows dependencies
@@ -85,7 +88,7 @@ jobs:
               brew uninstall pkg-config@0.29.2 || :
                 brew install gsl hdf5 meson ninja cmake &&
             export PKG_CONFIG=`which pkg-config` &&
-            echo "<<<<<<<<<#########################################>>>>>>>>>>" &&
+            echo "<<<<<<<<<##########################################>>>>>>>>>>" &&
             echo "$$$$$ `pkg-config --libs gsl`" &&
             echo "@@@@@ `pkg-config --cflags gsl`"
           CIBW_ARCHS: 'arm64'

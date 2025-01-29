@@ -70,7 +70,7 @@ This release has the following major changes:
 2. Build system switched from cmake to meson
 2. Native binaries for Windows
 6. Updated to conform to c/c++-17 standard
-7. Various bugfixes
+7. Various bugfixes.
 
 # LICENSE
 

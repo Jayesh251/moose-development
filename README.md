@@ -6,6 +6,9 @@ This is a repo for testing workflow using git.
 This is another test.
 
 This is the third commit entry.
+
+Testing git repo
+
 # MOOSE
 
 MOOSE is the Multiscale Object-Oriented Simulation Environment. It is designed

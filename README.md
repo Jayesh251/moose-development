@@ -44,19 +44,20 @@ details about MOOSE simulator, visit https://moose.ncbs.res.in .
 ----------
 # Installation
 
-See [INSTALL.md](INSTALL.md) for instructions on installation.
+See [INSTALL.md](https://github.com/subhacom/moose-core/blob/master/INSTALL.md) for instructions on installation.
 
-Have a look at examples, tutorials and demo here
-https://github.com/BhallaLab/moose-examples.
+Have a look at examples, tutorials, and demos here:  
+[https://github.com/BhallaLab/moose-examples](https://github.com/BhallaLab/moose-examples).
 
 # Build 
 
-To build `pymoose`, follow instructions given in
-[INSTALLATION.md](INSTALLATION.md) and for platform specific
-information see:
-- Linux: [UbuntuBuild.md](UbuntuBuild.md)
-- MacOSX: [AppleM1Build.md](AppleM1Build.md)
-- Windows: [WindowsBuild.md](WindowsBuild.md)
+To build `pymoose`, follow the instructions given in  
+[INSTALL.md](https://github.com/subhacom/moose-core/blob/master/INSTALL.md)  
+and for platform-specific information, see:
+
+- **Linux**: [UbuntuBuild.md](https://github.com/subhacom/moose-core/blob/master/UbuntuBuild.md)
+- **MacOSX**: [AppleM1Build.md](https://github.com/subhacom/moose-core/blob/master/AppleM1Build.md)
+- **Windows**: [WindowsBuild.md](https://github.com/subhacom/moose-core/blob/master/WindowsBuild.md)
 
 # ABOUT VERSION 4.1.0, `Jhangri`
 
@@ -72,13 +73,11 @@ This release has the following major changes:
 2. `HHGate2D`: separate `xminA`, `xminB`, etc. for `A` and `B` tables
    replaced by single `xmin`, `xmax`, `xdivs`, `ymin`, `ymax`, and
    `ydivs` fields for both tables.
-2. Build system switched from cmake to meson
-2. Native binaries for Windows
-6. Updated to conform to c/c++-17 standard
-7. Various bugfixes.
+3. Build system switched from cmake to meson
+4. Native binaries for Windows
+5. Updated to conform to c/c++-17 standard
+6. Various bugfixes.
 
 # LICENSE
 
 MOOSE is released under GPLv3.
-
-

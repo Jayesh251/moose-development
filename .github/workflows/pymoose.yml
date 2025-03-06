@@ -12,14 +12,20 @@ jobs:
         build_type: [Release]
         c_compiler: [clang]
         python-version: ["3.12"]
-        gsl_version: ["2.6", "2.7", "2.8"]  # Multiple GSL versions for Linux and Windows
         include:
           - os: ubuntu-22.04
-            apt: 10
+            apt: 10  # Linux will install the latest GSL version
           - os: macos-14
-            brew: 20
+            brew: 20  # macOS will install the latest GSL version
           - os: windows-latest
             winget: 30
+            gsl_version: "2.6"
+          - os: windows-latest
+            winget: 30
+            gsl_version: "2.7"
+          - os: windows-latest
+            winget: 30
+            gsl_version: "2.8"
     steps:
       - name: mamba-setup
         uses: mamba-org/setup-micromamba@v1
@@ -45,7 +51,6 @@ jobs:
             meson
             ninja
             meson-python
-            gsl=${{ matrix.gsl_version }}
           post-cleanup: all
           generate-run-shell: false            
       - name: Display Python version

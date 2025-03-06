@@ -51,6 +51,7 @@ jobs:
             meson
             ninja
             meson-python
+            gsl
           post-cleanup: all
           generate-run-shell: false            
       - name: Display Python version

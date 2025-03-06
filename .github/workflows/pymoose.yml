@@ -1,4 +1,4 @@
-name: Build install test
+name: Build and Test
 
 on: [push]
 
@@ -12,15 +12,20 @@ jobs:
         build_type: [Release]
         c_compiler: [clang]
         python-version: ["3.12"]
+        gsl_version: ["2.6", "2.7", "2.8"]  # Multiple GSL versions
         include:
           - os: ubuntu-22.04
-            apt: 10
+            apt: true
           - os: macos-14
-            brew: 20
+            brew: true
           - os: windows-latest
-            winget: 30
+            winget: true
+
     steps:
-      - name: mamba-setup
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Micromamba
         uses: mamba-org/setup-micromamba@v1
         with:
           environment-name: moose
@@ -44,26 +49,32 @@ jobs:
             meson
             ninja
             meson-python
-            gsl
           post-cleanup: all
-          generate-run-shell: false            
-      - name: Display Python version
-        run: |          
-          python -c "import sys; print(sys.version)"
-      - if: ${{ matrix.apt }}
+          generate-run-shell: false
+
+      - name: Install GSL (Linux)
+        if: matrix.apt
         run: |
           sudo apt-get update
-          sudo apt-get -y install libgsl0-dev libgsl-dev libhdf5-dev
-      - if: ${{ matrix.brew }}
+          sudo apt-get -y install libgsl-dev libhdf5-dev
+
+      - name: Install GSL (MacOS)
+        if: matrix.brew
         run: |
-          brew list pkg-config && brew uninstall pkg-config || echo "pkg-config not installed, skipping uninstall."
-          brew list pkg-config@0.29.2 && brew uninstall pkg-config@0.29.2 || echo "pkg-config@0.29.2 not available, skipping uninstall."
-          brew install gsl
+          brew install gsl@${{ matrix.gsl_version }}
           brew install hdf5
-      - name: checkout
-        uses: actions/checkout@v4          
-      - name: Build and install (non-windows)
-        if: runner.os != 'Windows' 
+
+      - name: Install GSL (Windows)
+        if: matrix.winget
+        run: |
+          micromamba install gsl=${{ matrix.gsl_version }}
+
+      - name: Display Python Version
+        run: |
+          python -c "import sys; print(sys.version)"
+
+      - name: Build and Install (Non-Windows)
+        if: runner.os != 'Windows'
         run: |
           eval "$(micromamba shell hook --shell bash)"
           micromamba activate moose
@@ -71,8 +82,9 @@ jobs:
           pip install python-libsbml
           pip install .
           python -c "import moose; moose.le()"
-      - name: Build and install (windows)
-        if: runner.os == 'Windows' 
+
+      - name: Build and Install (Windows)
+        if: runner.os == 'Windows'
         run: |
           micromamba shell hook -s powershell | Out-String | Invoke-Expression
           micromamba activate moose

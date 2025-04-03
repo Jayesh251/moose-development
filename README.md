@@ -4,6 +4,7 @@
 This is a repo for testing workflow using git.
 
 This is another test.
+This is one more test.
 
 This is the third commit entry.
 
